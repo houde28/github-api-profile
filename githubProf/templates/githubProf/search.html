@@ -1,0 +1,21 @@
+{% extends 'githubProf/base.html' %}
+
+{% block content %}
+<h1>GitHub Profile Search</h1>
+
+<form method="get">
+    <input type="text" name="q" placeholder="Enter a GitHub username" value="{{ query }}">
+    <button type="submit">Search</button>
+</form>
+
+{% if user_data %}
+    <h2>{{ user_data.name }}</h2>
+    <p>Bio: {{ bio|default:"No bio available" }}</p>
+    <p>Public repos: {{ public_repos }}</p>
+
+{% elif error_message %}
+    <p>{{ error_message }}</p>
+
+{% endif %}
+
+{% endblock %}

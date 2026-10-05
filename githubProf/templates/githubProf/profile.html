@@ -1,0 +1,10 @@
+{% extends githubProf/base.html %}
+
+{% block content %}
+<h1>{{ profile.name }} bio</h1>
+<body>
+    <p>bio: {{ profile.bio }}</p>
+    <p>followers: {{ profile.followers }}</p>
+    <p>public repos: {{ profile.public_repos }}</p>
+</body>
+{% endblock %}
