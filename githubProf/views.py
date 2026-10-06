@@ -32,9 +32,3 @@ def search_view(request):
     }
     return render(request, 'githubProf/search.html', context)
 
-def github_profile(request, username):
-    response = requests.get(f'https://api.github.com/users/{username}')
-    if response.status_code == 404:
-        return HttpResponse(f"""<h1>{username} does not exist</h1>""")
-    data = response.json()
-    return render(request, 'githubProf/profile.html', {'profile': data})
