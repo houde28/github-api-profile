@@ -13,6 +13,17 @@
     <p>Bio: {{ bio|default:"No bio available" }}</p>
     <p>Public repos: {{ public_repos }}</p>
 
+    <h3>Repositories</h3>
+    {% for repo in repos %}
+        <div>
+            <a href="{{ repo.html_url }}" target="_blank">{{ repo.name }}</a>
+            <p>{{ repo.description|default:"No description" }}</p>
+            <p>Stars: {{ repo.stargazers_count }} - {{ repo.language|default:"Unkown language" }}</p>
+        </div>
+    {% empty %}
+        <p>No public repositories.</p>
+    {% endfor %}
+
 {% elif error_message %}
     <p>{{ error_message }}</p>
 

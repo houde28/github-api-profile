@@ -8,6 +8,7 @@ def home_view(request):
 def search_view(request):
     username = request.GET.get('q', '').strip()
     user_data = None
+    repos = None
     error_message = None
 
     if username:
@@ -17,6 +18,12 @@ def search_view(request):
             response = requests.get(api_url)
             if response.status_code == 200:
                 user_data = response.json()
+
+                repos_url = f'https://api.github.com/users/{username}/repos'
+                repos_response = requests.get(repos_url)
+                if repos_response.status_code == 200:
+                    repos = repos_response.json()
+
             elif response.status_code == 404:
                 error_message = f"Github profile '{username}' not found."
             else:
@@ -28,6 +35,7 @@ def search_view(request):
         'bio' : user_data.get('bio') if user_data else None,
         'public_repos': user_data.get('public_repos') if user_data else None,
         'user_data' : user_data,
+        'repos' : repos, 
         'error_message': error_message,
     }
     return render(request, 'githubProf/search.html', context)
